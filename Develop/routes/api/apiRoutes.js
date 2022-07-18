@@ -41,9 +41,8 @@ router.post('/notes', (req, res) => {
 // `DELETE /api/notes/:id` should delete the note with the corresponding id.
 router.delete('/notes/:id', (req, res) => {
     const { id } = req.params;
-    const readData = 
-
-
-})
+    const readData = JSON.parse(fs.readFileSync(path.join(process.cwd(),"/db/db.json"), 'utf8'));
+    // checking if the id exists in the db
+    const newData = readData.filter(note => note.id !== id);})
 
 module.exports = router;
