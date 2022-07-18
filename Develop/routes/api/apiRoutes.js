@@ -3,7 +3,7 @@ const notesDB = require('../../db/db.json');
 const path = require('path');
 const fs = require('fs');
 const {v4 : uuidv4} = require('uuid')
-const chalk = require('chalk');
+// const chalk = require('chalk');
 
 // `GET /api/notes` should read the `db.json` file and return all saved notes as JSON.
 router.get('/notes', (req, res) => {
@@ -16,7 +16,7 @@ router.get('/notes', (req, res) => {
 // `POST /api/notes` should receive a new note -- add it to the `db.json`.
 router.post('/notes', (req, res) => {
     // log a POST request has been received
-    console.log(chalk.green(`${req.method} request received for ${req.url}`));
+    console.log(`${req.method} request received for ${req.url}`);
     // deconstruct the req.body object
     const { title, text } = req.body;
     //generate a new id
@@ -28,7 +28,7 @@ router.post('/notes', (req, res) => {
             text: text,
             id: newId
         }
-        // cwd current wiorks directory
+        // cwd === current working directory
     const readData = JSON.parse(fs.readFileSync(path.join(process.cwd(),"/db/db.json"), 'utf8'));
         console.log(readData);
         readData.push(newNote);
@@ -40,9 +40,20 @@ router.post('/notes', (req, res) => {
 
 // `DELETE /api/notes/:id` should delete the note with the corresponding id.
 router.delete('/notes/:id', (req, res) => {
-    const { id } = req.params;
+    const idDelete = req.params.id;
+    console.log(idDelete);
     const readData = JSON.parse(fs.readFileSync(path.join(process.cwd(),"/db/db.json"), 'utf8'));
-    // checking if the id exists in the db
-    const newData = readData.filter(note => note.id !== id);})
+    // checking if the id exists in the db then delete it
+    for (let i = 0; i < readData.length; i++) {
+        if (readData[i].id === idDelete) {
+            readData.splice(i, 1); 
+            fs.writeFileSync(path.join(process.cwd(),"/db/db.json"), JSON.stringify(readData));
+
+        }
+        console.log(`console---Note with ${idDelete} has been deleted`);
+        return res.json(readData);
+    }
+})
+    
 
 module.exports = router;

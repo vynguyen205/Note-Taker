@@ -1,6 +1,6 @@
 const express = require('express');
 const routes = require('./routes');
-const chalk = require('chalk');
+// const chalk = require('chalk');
 
 const app = express();
 
@@ -13,5 +13,5 @@ app.use(express.static('public'));
 app.use(routes);
 
 app.listen(PORT, () => {
-  console.log(chalk.green(`Server is listening on http://localhost:${PORT}`));
+  console.log(`Server is listening on http://localhost:${PORT}`);
 });

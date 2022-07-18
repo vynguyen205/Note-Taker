@@ -5,8 +5,8 @@ const htmlRoutes = require('./api/htmlRoutes');
 
 router.use('/api', apiRoutes);
 router.use('/', htmlRoutes);
-router.get('/*', (req, res) => {
-    console.log('Redirected to homepage')
-    res.redirect('/'); 
-})
+// router.get('/*', (req, res) => {
+//     console.log('Redirected to homepage')
+//     res.redirect('/'); 
+// })
 module.exports = router;

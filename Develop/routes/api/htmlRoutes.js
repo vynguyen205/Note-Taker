@@ -1,7 +1,7 @@
 const path = require('path')
 const router = require('express').Router();
 const notesDB = require('../../db/db.json');
-const chalk = require('chalk');
+// const chalk = require('chalk');
 
 //homepage
 router.get('/', (req, res) => {
